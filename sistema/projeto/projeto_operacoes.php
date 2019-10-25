@@ -30,7 +30,7 @@ if ($p_metodo = $_POST['operacao']) {
 			$msg = "Campo complemento está vazio";
 			header("Location: ?pas=projeto&arq=registro&mensagem=$msg&id_mensagem=erro");
 		} else if ($p_cliente == "") {
-			$msg = "Campo dasdsadasds está vazio";
+			$msg = "Campo cliente está vazio";
 			header("Location: ?pas=projeto&arq=registro&mensagem=$msg&id_mensagem=erro");
 		} else if ($p_funcionario == "") {
 			$msg = "Campo funcionários está vazio";

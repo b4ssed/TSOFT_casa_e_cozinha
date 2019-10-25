@@ -34,8 +34,29 @@ if ($_POST['op'] == "registro") {
 		$mensagem = mensagem("vazio", "telefone", "");
 		header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
 	} else {
+    // Verificar Email duplicado
+			$sql_sel_email = "SELECT * FROM clientes WHERE email='" . $p_email . "'";
+			$sql_sel_email_preparado = $conexaobd->prepare($sql_sel_email);
+			$sql_sel_email_preparado->execute();
+		// Verificar RG duplicado
+			$sql_sel_rg = "SELECT * FROM clientes WHERE rg='" . $p_rg . "'";
+			$sql_sel_rg_preparado = $conexaobd->prepare($sql_sel_rg);
+			$sql_sel_rg_preparado->execute();
+		// Verificar CPF duplicado
+			$sql_sel_cpf = "SELECT * FROM clientes WHERE cpf='" . $p_cpf . "'";
+			$sql_sel_cpf_preparado = $conexaobd->prepare($sql_sel_cpf);
+			$sql_sel_cpf_preparado->execute();
 
-		if ((!validar_email($p_email)) && ($p_email != NULL)) {
+			if($sql_sel_email_preparado->rowCount()>1){
+				$mensagem = mensagem("existencia", "e-mail", "");
+				header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
+		} elseif ($sql_sel_rg_preparado->rowCount()>1) {
+			$mensagem = mensagem("existencia", "RG", "");
+			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
+		} elseif ($sql_sel_cpf_preparado->rowCount()>1) {
+			$mensagem = mensagem("existencia", "CPF", "");
+			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
+		} elseif ((!validar_email($p_email)) && ($p_email != NULL)) {
 			$mensagem = mensagem("padrao", "e-mail", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
 		} else if (!validar_telefone($p_telefone)) {
@@ -50,12 +71,23 @@ if ($_POST['op'] == "registro") {
 		} else if ((!is_numeric($p_numero)) && ($p_numero != NULL)) {
 			$mensagem = mensagem("padrao", "número da residência", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
+		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_nome))  {
+			$mensagem = mensagem("padrao", "nome", "");
+			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
+		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_bairro)){
+			$mensagem = mensagem("padrao", "bairro", "");
+			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
+		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_complemento)) {
+			$mensagem = mensagem("padrao", "complemento", "");
+			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
+		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_logradouro)) {
+			$mensagem = mensagem("padrao", "logradouro", "");
+			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
 		} else {
 
 			$sql_sel_clientes = "SELECT * FROM clientes WHERE telefone='" . $p_telefone . "' OR email='" . $p_email . "' ";
 			$sql_sel_clientes_preparado = $conexaobd->prepare($sql_sel_clientes);
 			$sql_sel_clientes_preparado->execute();
-
 			if ($sql_sel_clientes_preparado->rowCount() == 0) {
 
 				$ins_dados = array(
@@ -119,8 +151,29 @@ Operações de Atualização
 		$mensagem = mensagem("vazio", "telefone", "");
 		header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
 	} else {
+		// Verificar Email duplicado
+			$sql_sel_email = "SELECT * FROM clientes WHERE email='" . $p_email . "'";
+			$sql_sel_email_preparado = $conexaobd->prepare($sql_sel_email);
+			$sql_sel_email_preparado->execute();
+		// Verificar RG duplicado
+			$sql_sel_rg = "SELECT * FROM clientes WHERE rg='" . $p_rg . "'";
+			$sql_sel_rg_preparado = $conexaobd->prepare($sql_sel_rg);
+			$sql_sel_rg_preparado->execute();
+		// Verificar CPF duplicado
+			$sql_sel_cpf = "SELECT * FROM clientes WHERE cpf='" . $p_cpf . "'";
+			$sql_sel_cpf_preparado = $conexaobd->prepare($sql_sel_cpf);
+			$sql_sel_cpf_preparado->execute();
 
-		if ((!validar_email($p_email)) && ($p_email != NULL)) {
+			if($sql_sel_email_preparado->rowCount()>1){
+				$mensagem = mensagem("existencia", "e-mail", "");
+				header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
+		} elseif ($sql_sel_rg_preparado->rowCount()>1) {
+			$mensagem = mensagem("existencia", "RG", "");
+			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
+		} elseif ($sql_sel_cpf_preparado->rowCount()>1) {
+			$mensagem = mensagem("existencia", "CPF", "");
+			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
+		} elseif ((!validar_email($p_email)) && ($p_email != NULL)) {
 			$mensagem = mensagem("padrao", "e-mail", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
 		} else if (!validar_telefone($p_telefone)) {
@@ -135,7 +188,18 @@ Operações de Atualização
 		} else if ((!is_numeric($p_numero)) && ($p_numero != NULL)) {
 			$mensagem = mensagem("padrao", "número de residência", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
-
+		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_nome))  {
+			$mensagem = mensagem("padrao", "nome", "");
+			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
+		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_bairro)){
+			$mensagem = mensagem("padrao", "bairro", "");
+			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
+		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_complemento)) {
+			$mensagem = mensagem("padrao", "complemento", "");
+			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
+		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_logradouro)) {
+			$mensagem = mensagem("padrao", "logradouro", "");
+			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
 		} else {
 			$sql_sel_cliente = "SELECT * FROM clientes WHERE id<>'" . $g_id . "' AND telefone='" . $p_telefone . "' ";
 			$sql_sel_cliente_preparado = $conexaobd->prepare($sql_sel_cliente);

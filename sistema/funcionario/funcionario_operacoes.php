@@ -11,7 +11,7 @@ if ($p_operacao == "1") {
 		$msg = "Nome não preenchido!";
 		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
 	} else if (($p_email != "") && (!validar_email($p_email))) {
-		$msg = "Email não preenchido!";
+		$msg = "Email preenchido incorretamente!";
 		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
 	} else if (!validar_telefone($p_telefone)){
 		$msg = "Telefone não preenchido!";
@@ -19,7 +19,23 @@ if ($p_operacao == "1") {
 	} else if ($p_usuario == "") {
 		$msg = "Usuario não preenchido!";
 		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
-	} else {
+	}	elseif ((!preg_match('/^[a-zA-Z0-9]+/', $p_nome) || (is_numeric($p_nome)))){
+		$msg = "Nome preenchido incorretamente!";
+		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
+	} elseif (!preg_match('/^[a-zA-Z0-9]+/', $p_usuario)) {
+		$msg = "Usuario preenchido incorretamente!";
+		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
+	} elseif (!preg_match('/^[a-zA-Z0-9]+/', $p_senha)) {
+		$msg = "Senha não aceita caracteres especiais!";
+		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
+	} elseif ($p_senha == "") {
+		$msg = "Senha não preenchida!";
+		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
+	} elseif (($p_email == "")) {
+		$msg = "Email não preenchido!";
+		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
+	}
+		else {
 		$sql_sel_funcionarios = "SELECT * FROM funcionarios INNER JOIN usuarios ON usuarios.id = funcionarios.usuarios_id WHERE funcionarios.email = '" . $p_email . "' OR usuarios.usuario = '" . $p_usuario . "'";
 		$sql_sel_funcionarios_preparado = $conexaobd->prepare($sql_sel_funcionarios);
 		$sql_sel_funcionarios_preparado->execute();
@@ -71,6 +87,18 @@ if ($p_operacao == "1") {
 		header("location: ?pas=funcionario&arq=consultadetalhada&id={$_POST['hidid']}&mensagem=$msg&id_mensagem=erro");
 	} else if ($p_usuario == "") {
 		$msg = "Usuario não preenchido!";
+		header("location: ?pas=funcionario&arq=consultadetalhada&id={$_POST['hidid']}&mensagem=$msg&id_mensagem=erro");
+	} elseif (!preg_match('/^[a-zA-Z0-9]+/', $p_senha)) {
+		$msg = "Senha não aceita caracteres especiais!";
+		header("location: ?pas=funcionario&arq=consultadetalhada&id={$_POST['hidid']}&mensagem=$msg&id_mensagem=erro");
+	}  elseif (!preg_match('/^[a-zA-Z0-9]+/', $p_usuario)) {
+		$msg = "Usuario preenchido incorretamente!";
+		header("location: ?pas=funcionario&arq=consultadetalhada&id={$_POST['hidid']}&mensagem=$msg&id_mensagem=erro");
+	} elseif ((!preg_match('/^[a-zA-Z0-9]+/', $p_nome) || (is_numeric($p_nome)))){
+		$msg = "Nome preenchido incorretamente!";
+		header("location: ?pas=funcionario&arq=consultadetalhada&id={$_POST['hidid']}&mensagem=$msg&id_mensagem=erro");
+	} elseif (($p_email == "")) {
+		$msg = "Email não preenchido!";
 		header("location: ?pas=funcionario&arq=consultadetalhada&id={$_POST['hidid']}&mensagem=$msg&id_mensagem=erro");
 	} else {
 		$sql_sel_funcionarios = "SELECT funcionarios.id, usuarios.senha FROM funcionarios INNER JOIN usuarios ON usuarios.id = funcionarios.usuarios_id WHERE email = '" . $p_email . "' OR usuario = '" . $p_usuario . "' and id<>'" . $_POST['hidid']. "'";
