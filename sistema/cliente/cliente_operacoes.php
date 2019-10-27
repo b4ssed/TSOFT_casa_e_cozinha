@@ -47,13 +47,13 @@ if ($_POST['op'] == "registro") {
 			$sql_sel_cpf_preparado = $conexaobd->prepare($sql_sel_cpf);
 			$sql_sel_cpf_preparado->execute();
 
-			if($sql_sel_email_preparado->rowCount()>1){
+			if($sql_sel_email_preparado->rowCount()>=1){
 				$mensagem = mensagem("existencia", "e-mail", "");
 				header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
-		} elseif ($sql_sel_rg_preparado->rowCount()>1) {
+		} elseif ($sql_sel_rg_preparado->rowCount()>=1) {
 			$mensagem = mensagem("existencia", "RG", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
-		} elseif ($sql_sel_cpf_preparado->rowCount()>1) {
+		} elseif ($sql_sel_cpf_preparado->rowCount()>=1) {
 			$mensagem = mensagem("existencia", "CPF", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
 		} elseif ((!validar_email($p_email)) && ($p_email != NULL)) {
@@ -71,16 +71,16 @@ if ($_POST['op'] == "registro") {
 		} else if ((!is_numeric($p_numero)) && ($p_numero != NULL)) {
 			$mensagem = mensagem("padrao", "número da residência", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
-		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_nome))  {
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_nome)) && ($p_nome != ""))  {
 			$mensagem = mensagem("padrao", "nome", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
-		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_bairro)){
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_bairro)) && ($p_bairro != "")){
 			$mensagem = mensagem("padrao", "bairro", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
-		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_complemento)) {
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_complemento)) && ($p_complemento != "")) {
 			$mensagem = mensagem("padrao", "complemento", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
-		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_logradouro)) {
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_logradouro)) && ($p_logradouro != "")) {
 			$mensagem = mensagem("padrao", "logradouro", "");
 			header("location: ?pas=cliente&arq=registro&mensagem=$mensagem&id_mensagem=$id");
 		} else {
@@ -164,13 +164,13 @@ Operações de Atualização
 			$sql_sel_cpf_preparado = $conexaobd->prepare($sql_sel_cpf);
 			$sql_sel_cpf_preparado->execute();
 
-			if($sql_sel_email_preparado->rowCount()>1){
+			if($sql_sel_email_preparado->rowCount()>=1){
 				$mensagem = mensagem("existencia", "e-mail", "");
 				header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
-		} elseif ($sql_sel_rg_preparado->rowCount()>1) {
+		} elseif ($sql_sel_rg_preparado->rowCount()>=1) {
 			$mensagem = mensagem("existencia", "RG", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
-		} elseif ($sql_sel_cpf_preparado->rowCount()>1) {
+		} elseif ($sql_sel_cpf_preparado->rowCount()>=1) {
 			$mensagem = mensagem("existencia", "CPF", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
 		} elseif ((!validar_email($p_email)) && ($p_email != NULL)) {
@@ -188,16 +188,16 @@ Operações de Atualização
 		} else if ((!is_numeric($p_numero)) && ($p_numero != NULL)) {
 			$mensagem = mensagem("padrao", "número de residência", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
-		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_nome))  {
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_nome)) && ($p_nome != ""))  {
 			$mensagem = mensagem("padrao", "nome", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
-		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_bairro)){
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_bairro)) && ($p_bairro != "")) {
 			$mensagem = mensagem("padrao", "bairro", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
-		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_complemento)) {
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_complemento)) && ($p_complemento != "")) {
 			$mensagem = mensagem("padrao", "complemento", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
-		} else if (!preg_match('/^[a-zA-Z0-9]+/', $p_logradouro)) {
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_logradouro)) && ($p_logradouro != "")) {
 			$mensagem = mensagem("padrao", "logradouro", "");
 			header("location: ?pas=cliente&arq=consultadetalhada&mensagem=$mensagem&id=$g_id&id_mensagem=$id");
 		} else {

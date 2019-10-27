@@ -4,6 +4,9 @@
   if($p_ambiente == ""){
     $msg = "Preencha o campo ambiente para concluir o registro";
     header("Location: ?pas=ambiente&arq=registro&mensagem=$msg&id_mensagem=erro");
+  }elseif (((!preg_match('/^[a-zA-Z0-9]+/', $p_ambiente)) && ($p_ambiente != ""))) {
+    $msg = "Preencha o campo ambiente para concluir o registro";
+    header("Location: ?pas=ambiente&arq=registro&mensagem=$msg&id_mensagem=erro");
   }else{
     $sel_ambientes = selecionar("SELECT nome FROM ambientes WHERE nome = '".$p_ambiente."'");
     $sel_ambientes_exec = $sel_ambientes->execute();
