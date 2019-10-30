@@ -19,7 +19,7 @@ function valorPonto($valor) {
 		$valor_alterado = explode(",", $valor);
 
 		//Adicionando ponto a string para que ela seja aceita pelo banco de dados
-		$valor_resultado = $valor_alterado[0] . "." . $valor_alterado[1];
+		$valor_resultado = $valor_alterado[0] . "." . $valor_alterado[0];
 
 	}
 
