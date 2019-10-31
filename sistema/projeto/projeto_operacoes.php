@@ -23,7 +23,7 @@ if ($p_metodo = $_POST['operacao']) {
 		} else if ($p_rua == "") {
 			$msg = "Campo Logradouro está vazio";
 			header("Location: ?pas=projeto&arq=registro&mensagem=$msg&id_mensagem=erro");
-		} else if (($p_numero == "") || (is_nan($p_numero))) {
+		} else if (($p_numero == "")) {
 			$msg = "Campo numero está vazio";
 			header("Location: ?pas=projeto&arq=registro&mensagem=$msg&id_mensagem=erro");
 		} else if ($p_complemento == "") {
@@ -44,13 +44,13 @@ if ($p_metodo = $_POST['operacao']) {
 		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_complemento)) && ($p_complemento != "")) {
 			$msg = "Campo Complemento preenchido incorretamente";
 			header("Location: ?pas=projeto&arq=registro&mensagem=$msg&id_mensagem=erro");
-		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_logradouro)) && ($p_logradouro != "")) {
+		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_rua)) && ($p_rua != "")) {
 			$msg = "Campo Logradouro preenchido incorretamente";
 			header("Location: ?pas=projeto&arq=registro&mensagem=$msg&id_mensagem=erro");
 		} else if ((!preg_match('/^[a-zA-Z0-9]+/', $p_titulo)) && ($p_titulo != "")) {
 			$msg = "Campo titulo preenchido incorretamente";
 			header("Location: ?pas=projeto&arq=registro&mensagem=$msg&id_mensagem=erro");
-		} else if (!is_numeric($p_numero)) {
+		} else if ((!is_numeric($p_numero)) && ($p_numero != NULL)) {
 			$msg = "Campo Número de Residência preenchido incorretamente";
 			header("Location: ?pas=projeto&arq=registro&mensagem=$msg&id_mensagem=erro");
 		} else {
