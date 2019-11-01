@@ -23,7 +23,7 @@ if ($p_operacao == "1") {
 		$msg = "Nome preenchido incorretamente!";
 		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
 	} elseif (!preg_match('/^[a-zA-Z0-9]+/', $p_usuario)) {
-		$msg = "Usuario preenchido incorretamente!";
+		$msg = "Usuário preenchido incorretamente!";
 		header("location: ?pas=funcionario&arq=registro&mensagem=$msg&id_mensagem=erro");
 	} elseif (!preg_match('/^[a-zA-Z0-9]+/', $p_senha)) {
 		$msg = "Senha não aceita caracteres especiais!";

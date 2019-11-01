@@ -20,13 +20,13 @@ if (!$g_id = $_GET['id']) {
   </div>
   <div>
     <fieldset class="fundo-div">
-      <legend>Informações do funcionario</legend>
+      <legend>Informações do funcionário</legend>
       <div class="padding">
         <span>Nome: <?php echo $sql_sel_funcionario_dados['nome']; ?></span>
         <a href="sistema\funcionario\modal\modal_funcionarioedicao.php?id=<?php echo $sql_sel_funcionario_dados['id'] ?>" rel="modal:open"><button class="btn-edit" type="submit">Editar</button></a>
       </div>
       <div class="padding">
-        <span>Usuario: <?php echo $sql_sel_funcionario_dados['usuario']; ?></span>
+        <span>Usuário: <?php echo $sql_sel_funcionario_dados['usuario']; ?></span>
       </div>
       <div class="padding">
         <span>E-mail: <?php echo $sql_sel_funcionario_dados['email']; ?></span>
@@ -42,10 +42,10 @@ if (!$g_id = $_GET['id']) {
       <table id="tr-link" class="tabela-consultas-2">
         <thead>
           <tr>
-            <th width="20%">Titulo</th>
+            <th width="20%">Título</th>
             <th width="20%">Cliente</th>
             <th width="20%">Status</th>
-            <th width="20%">Data de Inicio</th>
+            <th width="20%">Data de Início</th>
             <th width="20%">Data de conclusão</th>
           </tr>
         </thead>

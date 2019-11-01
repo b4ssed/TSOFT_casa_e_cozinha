@@ -9,6 +9,7 @@ if ($p_metodo = $_POST['operacao']) {
 		$p_rua = $_POST['rua'];
 		$p_numero = $_POST['numero'];
 		$p_complemento = $_POST['complemento'];
+		$p_logradouro = $_POST['logradouro'];
 		$p_descricao = $_POST['descricao'];
 		$p_cliente = $_POST['cliente'];
 		$p_funcionario = $_POST['funcionario'];
