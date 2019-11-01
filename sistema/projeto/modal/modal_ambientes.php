@@ -45,7 +45,7 @@ while ($sql_sel_ambientes_dados = $sql_sel_ambientes_preparado->fetch()) {
 }
 ?>
         </select>
-        <textarea name="descricao-ambientes" rows="8" cols="60"><?php if (isset($dado_ambiente)) {echo $dado_ambiente['descricao'];}?></textarea>
+        <textarea name="descricao-ambientes" rows="8" cols="60" required=""><?php if (isset($dado_ambiente)) {echo $dado_ambiente['descricao'];}?></textarea>
         <div class="btn-modal-ambientes">
           <?php if ($fazer === 'registrar') {
 	?>
